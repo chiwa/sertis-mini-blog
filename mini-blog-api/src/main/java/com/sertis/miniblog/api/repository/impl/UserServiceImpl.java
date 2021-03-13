@@ -67,6 +67,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 	@Override
 	public com.sertis.miniblog.api.model.user.User save(com.sertis.miniblog.api.model.user.User user) {
 		com.sertis.miniblog.api.model.user.User newUser = new com.sertis.miniblog.api.model.user.User();
+		System.out.println("===>>>> " + newUser.toString());
 		newUser.setUsername(user.getUsername());
 		newUser.setFirstName(user.getFirstName());
 		newUser.setLastName(user.getLastName());

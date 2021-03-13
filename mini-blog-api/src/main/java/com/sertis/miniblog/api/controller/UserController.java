@@ -3,6 +3,8 @@ package com.sertis.miniblog.api.controller;
 
 import com.sertis.miniblog.api.exception.AuthenticationException;
 import com.sertis.miniblog.api.exception.DataNotFoundException;
+import com.sertis.miniblog.api.exception.DatabaseException;
+import com.sertis.miniblog.api.exception.UnexpectedException;
 import com.sertis.miniblog.api.model.request.AuthenticationRequest;
 import com.sertis.miniblog.api.model.response.LoginResponse;
 import com.sertis.miniblog.api.model.user.User;
@@ -13,8 +15,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -25,8 +27,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 
+import static org.reflections.Reflections.log;
+
 @RestController
-@Slf4j
 @Api(value="User", description="Api for manager users.")
 public class UserController {
 
@@ -105,6 +108,25 @@ public class UserController {
             log.error(ex.getMessage());
             throw new AuthenticationException("Token expired.",
                     ex.getMessage());
+        }
+    }
+
+    @ApiOperation(value = "Register new user.", response = LoginResponse.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successful"),
+            @ApiResponse(code = 400, message = "Bad request,  Invalid data [missing required data, duplicated data]."),
+            @ApiResponse(code = 500, message = "Unexpected exception.")
+    })
+    @PostMapping("/register-users")
+    public User registerUser(@RequestBody User newUser){
+        try {
+            return  userService.save(newUser);
+        } catch (DataIntegrityViolationException ex) {
+            log.error(ex.getMessage());
+            throw new DatabaseException("Invalid data [missing required data, duplicated data]", ex.getMessage());
+        } catch (Exception ex) {
+            log.error(ex.getMessage());
+            throw new UnexpectedException(ex.getMessage());
         }
     }
 }

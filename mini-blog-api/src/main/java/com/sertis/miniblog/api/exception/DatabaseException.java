@@ -1,10 +1,10 @@
 package com.sertis.miniblog.api.exception;
 
-public class AuthenticationException extends RuntimeException {
+public class DatabaseException extends RuntimeException {
 
     private String developerMessage;
 
-    public AuthenticationException(String errorMessage, String developerMessage) {
+    public DatabaseException(String errorMessage, String developerMessage) {
         super(errorMessage);
         this.developerMessage = developerMessage;
     }

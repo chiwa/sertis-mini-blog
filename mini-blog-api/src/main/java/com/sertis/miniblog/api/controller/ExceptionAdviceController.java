@@ -2,6 +2,8 @@ package com.sertis.miniblog.api.controller;
 
 import com.sertis.miniblog.api.exception.AuthenticationException;
 import com.sertis.miniblog.api.exception.DataNotFoundException;
+import com.sertis.miniblog.api.exception.DatabaseException;
+import com.sertis.miniblog.api.exception.UnexpectedException;
 import com.sertis.miniblog.api.model.response.ApiErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -29,4 +31,17 @@ public class ExceptionAdviceController {
     public ApiErrorResponse handleDataNotFoundException(DataNotFoundException ex) {
         return new ApiErrorResponse(HttpStatus.NO_CONTENT.value(), ex.getMessage(), null);
     }
+
+    @ExceptionHandler(DatabaseException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiErrorResponse handleDatabaseException(DatabaseException ex) {
+        return new ApiErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getMessage(), ex.getDeveloperMessage());
+    }
+
+    @ExceptionHandler(UnexpectedException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ApiErrorResponse handleDuplicatedDataException(UnexpectedException ex) {
+        return new ApiErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value() , ex.getMessage(), ex.getMessage());
+    }
+
 }
