@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Default ignored files
+/workspace.xml
