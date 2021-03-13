@@ -128,7 +128,7 @@ curl --insecure -X DELETE \
 Response : 200
 
 ### Get All Categories
-Get the logged in user information
+Get all Categories
 
 ~~~
 curl --insecure -X GET \
