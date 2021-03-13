@@ -1,7 +1,5 @@
 package com.sertis.miniblog.api.repository.impl;
 
-
-
 import com.sertis.miniblog.api.model.user.User;
 import com.sertis.miniblog.api.repository.inf.UserRepository;
 import com.sertis.miniblog.api.repository.inf.UserService;
@@ -16,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 
 @Service(value = "userService")
@@ -51,12 +48,6 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 	@Override
 	public User findByUserName(String username) {
 		return userRepository.findByUsername(username);
-	}
-
-	@Override
-	public User findById(int id) {
-		Optional<User> optionalUser = userRepository.findById(id);
-		return optionalUser.isPresent() ? optionalUser.get() : null;
 	}
 
 	@Override

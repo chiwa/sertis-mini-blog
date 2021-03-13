@@ -76,7 +76,7 @@ Get the logged in user information
 
 ~~~
 curl --insecure -X GET \
-  http://localhost:8080-/users \
+  http://localhost:8080/users \
   -H 'authorization: SERTIS eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjaGl3YSIsImlzcyI6Imh0dHA6Ly93d3cuc2VydGlzLmNvLnRoIiwiaWF0IjoxNjE1NjE5MzYzLCJleHAiOjE2MTU2MzczNjN9.fGOTxwx1eRTpdr4Lx-waDMRCFMaH2g7NMJg4eehl8iE'
 ~~~
 
@@ -126,3 +126,18 @@ curl --insecure -X DELETE \
 ~~~
 
 Response : 200
+
+### Get All Categories
+Get the logged in user information
+
+~~~
+curl --insecure -X GET \
+  http://localhost:8080/categories \
+  -H 'authorization: SERTIS eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjaGl3YSIsImlzcyI6Imh0dHA6Ly93d3cuc2VydGlzLmNvLnRoIiwiaWF0IjoxNjE1NjUwMTA4LCJleHAiOjE2MTU2NjgxMDh9.hsRKjylaBQImpeafv31bJasxuy2H7-h-B9xxNZ2Mb2Y'
+~~~
+
+response :
+
+~~~
+[{"category_name":"Travel"},{"category_name":"Programming"},{"category_name":"Foods"}]%
+~~~
