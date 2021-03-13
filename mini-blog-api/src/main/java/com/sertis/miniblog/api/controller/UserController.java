@@ -2,11 +2,13 @@ package com.sertis.miniblog.api.controller;
 
 
 import com.sertis.miniblog.api.exception.AuthenticationException;
+import com.sertis.miniblog.api.exception.DataNotFoundException;
 import com.sertis.miniblog.api.model.request.AuthenticationRequest;
 import com.sertis.miniblog.api.model.response.LoginResponse;
 import com.sertis.miniblog.api.model.user.User;
 import com.sertis.miniblog.api.repository.impl.UserServiceImpl;
 import com.sertis.miniblog.api.security.JwtTokenService;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -79,6 +81,29 @@ public class UserController {
         } catch (BadCredentialsException ex) {
             log.error(ex.getMessage());
             throw new AuthenticationException("Authentication failed, please check your username and password",
+                    ex.getMessage());
+        }
+    }
+
+    @ApiOperation(value = "Get user information from token (current login user).", response = LoginResponse.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successful"),
+            @ApiResponse(code = 204, message = "No content."),
+            @ApiResponse(code = 401, message = "Authentication failed."),
+            @ApiResponse(code = 500, message = "Unexpected exception.")
+    })
+    @GetMapping(value = "/users")
+    public User getLoggedUserData(HttpServletRequest req){
+        try {
+            final User user = jwtTokenService.getUserInformation(req);
+            if (user == null) {
+                log.error("User not found");
+                throw new DataNotFoundException("User not found.", null);
+            }
+            return user;
+        } catch (ExpiredJwtException ex) {
+            log.error(ex.getMessage());
+            throw new AuthenticationException("Token expired.",
                     ex.getMessage());
         }
     }

@@ -1,6 +1,7 @@
 package com.sertis.miniblog.api.controller;
 
 import com.sertis.miniblog.api.exception.AuthenticationException;
+import com.sertis.miniblog.api.exception.DataNotFoundException;
 import com.sertis.miniblog.api.model.response.ApiErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -23,4 +24,9 @@ public class ExceptionAdviceController {
         return new ApiErrorResponse(HttpStatus.UNAUTHORIZED.value(), ex.getMessage(), null);
     }
 
+    @ExceptionHandler(DataNotFoundException.class)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public ApiErrorResponse handleDataNotFoundException(DataNotFoundException ex) {
+        return new ApiErrorResponse(HttpStatus.NO_CONTENT.value(), ex.getMessage(), null);
+    }
 }
