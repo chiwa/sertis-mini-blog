@@ -1,11 +1,13 @@
 package com.sertis.miniblog.api.repository.inf;
 
 
+import com.sertis.miniblog.api.model.user.User;
+
 public interface UserService {
 
-    com.sertis.miniblog.api.model.user.User findByUserName(String username);
-    com.sertis.miniblog.api.model.user.User save(com.sertis.miniblog.api.model.user.User user);
+    User findByUserName(String username);
+    User save(User user);
     void deleteById(int id);
-    com.sertis.miniblog.api.model.user.User findById(int id);
+    User findById(int id);
 
 }

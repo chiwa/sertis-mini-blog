@@ -20,10 +20,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -125,6 +122,31 @@ public class UserController {
             log.error(ex.getMessage());
             throw new DatabaseException("Invalid data [missing required data, duplicated data]", ex.getMessage());
         } catch (Exception ex) {
+            log.error(ex.getMessage());
+            throw new UnexpectedException(ex.getMessage());
+        }
+    }
+
+    @ApiOperation(value = "Delete user.", response = LoginResponse.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successful"),
+            @ApiResponse(code = 401, message = "Authentication failed."),
+            @ApiResponse(code = 500, message = "Unexpected exception.")
+    })
+    @DeleteMapping(value = "/users")
+    public void deleteUserOrderDetail(HttpServletRequest req){
+        try {
+            final User user = jwtTokenService.getUserInformation(req);
+            if (user == null) {
+                log.error("User not found");
+                throw new DataNotFoundException("User not found.", null);
+            }
+            userService.deleteById(user.getId());
+        } catch (ExpiredJwtException ex) {
+            log.error(ex.getMessage());
+            throw new AuthenticationException("Token expired.",
+                    ex.getMessage());
+        }  catch (Exception ex) {
             log.error(ex.getMessage());
             throw new UnexpectedException(ex.getMessage());
         }

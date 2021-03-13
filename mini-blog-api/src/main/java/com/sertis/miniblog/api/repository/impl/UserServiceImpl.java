@@ -49,12 +49,12 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 	}
 
 	@Override
-	public com.sertis.miniblog.api.model.user.User findByUserName(String username) {
+	public User findByUserName(String username) {
 		return userRepository.findByUsername(username);
 	}
 
 	@Override
-	public com.sertis.miniblog.api.model.user.User findById(int id) {
+	public User findById(int id) {
 		Optional<User> optionalUser = userRepository.findById(id);
 		return optionalUser.isPresent() ? optionalUser.get() : null;
 	}
@@ -65,9 +65,8 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 	}
 
 	@Override
-	public com.sertis.miniblog.api.model.user.User save(com.sertis.miniblog.api.model.user.User user) {
-		com.sertis.miniblog.api.model.user.User newUser = new com.sertis.miniblog.api.model.user.User();
-		System.out.println("===>>>> " + newUser.toString());
+	public User save(User user) {
+		User newUser = new User();
 		newUser.setUsername(user.getUsername());
 		newUser.setFirstName(user.getFirstName());
 		newUser.setLastName(user.getLastName());

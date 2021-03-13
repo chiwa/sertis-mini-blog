@@ -77,7 +77,7 @@ Get the logged in user information
 ~~~
 curl --insecure -X GET \
   http://localhost:8080-/users \
-  -H 'authorization: SERTIS eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjaGl3YSIsImlzcyI6Imh0dHA6Ly93d3cuc2VydGlzLmNvLnRoIiwiaWF0IjoxNjE1NjE4MTc3LCJleHAiOjE2MTU2MzYxNzd9.YsSwEBhQV9jrpQYdWIGXv-C5QJ7HAVHqHHMQqlGoTm0'
+  -H 'authorization: SERTIS eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjaGl3YSIsImlzcyI6Imh0dHA6Ly93d3cuc2VydGlzLmNvLnRoIiwiaWF0IjoxNjE1NjE5MzYzLCJleHAiOjE2MTU2MzczNjN9.fGOTxwx1eRTpdr4Lx-waDMRCFMaH2g7NMJg4eehl8iE'
 ~~~
 
 response :
@@ -115,3 +115,14 @@ Response :
     "last_name":"test"
 }
 ~~~
+
+## Delete User
+Delete logged in user
+
+~~~
+curl --insecure -X DELETE \
+  http://localhost:8080/users \
+  -H 'authorization: SERTIS eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjaGl3YSIsImlzcyI6Imh0dHA6Ly93d3cuc2VydGlzLmNvLnRoIiwiaWF0IjoxNjE1NjQ2NjQ0LCJleHAiOjE2MTU2NjQ2NDR9.rM0Z4FmX9eWTHKQ2JxzhkGxWPCENvmme4xg-XCIOP8g'
+~~~
+
+Response : 200
