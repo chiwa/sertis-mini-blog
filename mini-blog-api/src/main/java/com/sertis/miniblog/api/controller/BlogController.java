@@ -58,7 +58,7 @@ public class BlogController {
         this.categoryService = categoryService;
     }
 
-    @ApiOperation(value = "Get all blogs.", response = LoginResponse.class)
+    @ApiOperation(value = "Get all blogs.", response = Blog.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successful"),
             @ApiResponse(code = 204, message = "No content."),
@@ -79,6 +79,13 @@ public class BlogController {
         }
     }
 
+    @ApiOperation(value = "Create new blog.", response = Blog.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successful"),
+            @ApiResponse(code = 400, message = "Bad request,  Invalid data."),
+            @ApiResponse(code = 401, message = "Authentication failed."),
+            @ApiResponse(code = 500, message = "Unexpected exception.")
+    })
     @PostMapping("/blogs")
     public Blog addNewBlog(HttpServletRequest req, @RequestBody BlogRequest blogRequest){
         try {

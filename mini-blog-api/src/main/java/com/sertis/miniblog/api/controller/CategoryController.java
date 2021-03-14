@@ -46,7 +46,7 @@ public class CategoryController {
     }
 
 
-    @ApiOperation(value = "Get all categories.", response = LoginResponse.class)
+    @ApiOperation(value = "Get all categories.", response = Category.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successful"),
             @ApiResponse(code = 204, message = "No content."),

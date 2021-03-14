@@ -22,6 +22,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
+import javax.jws.soap.SOAPBinding;
 import javax.servlet.http.HttpServletRequest;
 
 import static org.reflections.Reflections.log;
@@ -85,7 +86,7 @@ public class UserController {
         }
     }
 
-    @ApiOperation(value = "Get user information from token (current login user).", response = LoginResponse.class)
+    @ApiOperation(value = "Get user information from token (current login user).", response = User.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successful"),
             @ApiResponse(code = 204, message = "No content."),
@@ -108,7 +109,7 @@ public class UserController {
         }
     }
 
-    @ApiOperation(value = "Register new user.", response = LoginResponse.class)
+    @ApiOperation(value = "Register new user.", response = User.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successful"),
             @ApiResponse(code = 400, message = "Bad request,  Invalid data [missing required data, duplicated data]."),
@@ -127,7 +128,7 @@ public class UserController {
         }
     }
 
-    @ApiOperation(value = "Delete user.", response = LoginResponse.class)
+    @ApiOperation(value = "Delete user.")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successful"),
             @ApiResponse(code = 401, message = "Authentication failed."),
