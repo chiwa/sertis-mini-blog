@@ -176,7 +176,7 @@ public class BlogController {
             @ApiResponse(code = 500, message = "Unexpected exception.")
     })
     @DeleteMapping("/blogs/{id}")
-    public Boolean deleteBlog(HttpServletRequest req, @RequestBody BlogRequest blogRequest, @PathVariable("id") Integer id){
+    public Boolean deleteBlog(HttpServletRequest req, @PathVariable("id") Integer id){
         try {
             final User user = jwtTokenService.getUserInformation(req);
             if (user == null) {

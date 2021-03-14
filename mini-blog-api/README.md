@@ -256,12 +256,7 @@ Delete Blog
 curl --insecure -X DELETE \
 http://localhost:8080/blogs/1 \
   -H 'authorization: SERTIS eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjaGl3YSIsImlzcyI6Imh0dHA6Ly93d3cuc2VydGlzLmNvLnRoIiwiaWF0IjoxNjE1NjkxMzk1LCJleHAiOjE2MTU3MDkzOTV9.DUneh1Q3o_TvDKlBp2UbjBHEO1cMAK-BRJrDUZtQLoc' \
-  -H 'content-type: application/json' \
-  -d '{
-        "topic":"test edit",
-        "content":"test edit",
-    "category_id" : 1
-}'
+  -H 'content-type: application/json'
 ~~~
 
 Response :
@@ -277,12 +272,7 @@ Delete other user's Blog
 curl --insecure -X DELETE \
 http://localhost:8080/blogs/3 \
   -H 'authorization: SERTIS eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjaGl3YSIsImlzcyI6Imh0dHA6Ly93d3cuc2VydGlzLmNvLnRoIiwiaWF0IjoxNjE1NjkxMzk1LCJleHAiOjE2MTU3MDkzOTV9.DUneh1Q3o_TvDKlBp2UbjBHEO1cMAK-BRJrDUZtQLoc' \
-  -H 'content-type: application/json' \
-  -d '{
-        "topic":"test edit",
-        "content":"test edit",
-    "category_id" : 1
-}'
+  -H 'content-type: application/json'
 ~~~
 
 Response :
