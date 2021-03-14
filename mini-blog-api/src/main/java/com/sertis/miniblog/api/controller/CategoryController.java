@@ -4,6 +4,7 @@ import com.sertis.miniblog.api.exception.AuthenticationException;
 import com.sertis.miniblog.api.exception.UnexpectedException;
 import com.sertis.miniblog.api.model.category.Category;
 import com.sertis.miniblog.api.model.response.LoginResponse;
+import com.sertis.miniblog.api.repository.impl.BlogServiceImpl;
 import com.sertis.miniblog.api.repository.impl.CategoryServiceImpl;
 import com.sertis.miniblog.api.security.JwtTokenService;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -44,6 +45,10 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
+
+    @Autowired
+    private BlogServiceImpl blogService;
+
     @ApiOperation(value = "Get all categories.", response = LoginResponse.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successful"),
@@ -60,7 +65,6 @@ public class CategoryController {
             throw new AuthenticationException("Token expired.",
                     ex.getMessage());
         } catch (Exception ex) {
-            ex.printStackTrace();
             log.error(ex.getMessage());
             throw new UnexpectedException(ex.getMessage());
         }
