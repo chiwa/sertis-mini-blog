@@ -23,6 +23,7 @@ CREATE TABLE BLOGS(
   category_id INT NOT NULL,
   topic VARCHAR(255) NOT NULL,
   content VARCHAR(512) NOT NULL,
+  last_modified DATE NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (user_id) REFERENCES USERS(id),
   FOREIGN KEY (category_id) REFERENCES CATEGORIES(id)
@@ -38,7 +39,7 @@ INSERT INTO CATEGORIES (id, category_name) VALUES (1, 'Travel');
 INSERT INTO CATEGORIES (id, category_name) VALUES (2, 'Programming');
 INSERT INTO CATEGORIES (id, category_name) VALUES (3, 'Foods');
 
-INSERT INTO BLOGS (id, user_id, category_id, topic, content) VALUES (1, 1, 2, 'Install JDK', 'This is the guide......');
-INSERT INTO BLOGS (id, user_id, category_id, topic, content) VALUES (2, 1, 2, 'Hello World Java', 'Create new application......');
-INSERT INTO BLOGS (id, user_id, category_id, topic, content) VALUES (3, 1, 2, 'xxxx', 'xxxxxx......');
-INSERT INTO BLOGS (id, user_id, category_id, topic, content) VALUES (4, 3, 2, 'zzz', 'zzzz......');
+INSERT INTO BLOGS (id, user_id, category_id, topic, content, last_modified) VALUES (1, 1, 2, 'Install JDK', 'This is the guide......', '2011-03-14');
+INSERT INTO BLOGS (id, user_id, category_id, topic, content, last_modified) VALUES (2, 1, 2, 'Hello World Java', 'Create new application......', '2011-03-14');
+INSERT INTO BLOGS (id, user_id, category_id, topic, content, last_modified) VALUES (3, 2, 1, 'Travel to Japan', 'Tokyo......', '2011-03-14');
+INSERT INTO BLOGS (id, user_id, category_id, topic, content, last_modified) VALUES (4, 3, 3, 'Pizza', 'How to cook pizza......', '2011-03-14');

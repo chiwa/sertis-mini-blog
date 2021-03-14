@@ -2,6 +2,7 @@ package com.sertis.miniblog.api.controller;
 
 import com.sertis.miniblog.api.exception.AuthenticationException;
 import com.sertis.miniblog.api.exception.UnexpectedException;
+import com.sertis.miniblog.api.model.blog.Blog;
 import com.sertis.miniblog.api.model.category.Category;
 import com.sertis.miniblog.api.model.response.LoginResponse;
 import com.sertis.miniblog.api.repository.impl.BlogServiceImpl;
@@ -23,12 +24,12 @@ import java.util.List;
 import static org.reflections.Reflections.log;
 
 @RestController
-@Api(value="Category", description="Api for manager categories.")
-public class CategoryController {
+@Api(value="Category", description="Api for manager blog.")
+public class BlogController {
 
     private AuthenticationManager authenticationManager;
     private JwtTokenService jwtTokenService;
-    private CategoryServiceImpl categoryService;
+    private BlogServiceImpl blogService;
 
     @Autowired
     public void setAuthenticationManager(AuthenticationManager authenticationManager) {
@@ -41,22 +42,21 @@ public class CategoryController {
     }
 
     @Autowired
-    public void setCategoryService(CategoryServiceImpl categoryService) {
-        this.categoryService = categoryService;
+    public void setCategoryService(BlogServiceImpl blogService) {
+        this.blogService = blogService;
     }
 
-
-    @ApiOperation(value = "Get all categories.", response = LoginResponse.class)
+    @ApiOperation(value = "Get all blogs.", response = LoginResponse.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successful"),
             @ApiResponse(code = 204, message = "No content."),
             @ApiResponse(code = 401, message = "Authentication failed."),
             @ApiResponse(code = 500, message = "Unexpected exception.")
     })
-    @GetMapping(value = "/categories")
-    public List<Category> getAllCategories(HttpServletRequest req){
+    @GetMapping(value = "/blogs")
+    public List<Blog> getAllBlogs(HttpServletRequest req){
         try {
-           return categoryService.getAllCategory();
+           return blogService.getAllBlogs();
         } catch (ExpiredJwtException ex) {
             log.error(ex.getMessage());
             throw new AuthenticationException("Token expired.",
