@@ -1,8 +1,6 @@
 package com.sertis.miniblog.api.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sertis.miniblog.api.exception.AuthenticationException;
 import com.sertis.miniblog.api.model.request.AuthenticationRequest;
 import com.sertis.miniblog.api.model.response.LoginResponse;
 import com.sertis.miniblog.api.repository.impl.UserServiceImpl;
@@ -19,7 +17,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import static org.junit.Assert.assertThrows;
 import static org.junit.matchers.JUnitMatchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
