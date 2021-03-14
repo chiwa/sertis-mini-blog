@@ -61,16 +61,6 @@ public class UserControllerTest {
 
     @Test
     public void step2_login_success() throws Exception {
-
-       /* authenticationRequest.setUsername("chiwa");
-        authenticationRequest.setPassword("123");
-
-        mockMvc.perform(post("/login")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(authenticationRequest)))
-                //.andExpect(content().string(containsString("Authentication failed, please check your username and password")))
-                .andExpect(status().isUnauthorized());*/
-
         authenticationRequest.setUsername("chiwa");
         authenticationRequest.setPassword("password");
 
@@ -92,6 +82,7 @@ public class UserControllerTest {
                     .andExpect(content().string(containsString("Authentication failed, please check your username and password")))
                     .andExpect(status().isUnauthorized());
         } catch (Exception e) {
+           Assert.assertTrue(e.getMessage().contains("Authentication failed, please check your username and password"));
         }
     }
 
