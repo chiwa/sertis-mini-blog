@@ -133,4 +133,45 @@ public class BlogController {
             throw new UnexpectedException(ex.getMessage());
         }
     }
+
+    @ApiOperation(value = "Create new blog.", response = Blog.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successful"),
+            @ApiResponse(code = 400, message = "Bad request,  Invalid data or user."),
+            @ApiResponse(code = 401, message = "Authentication failed."),
+            @ApiResponse(code = 500, message = "Unexpected exception.")
+    })
+    @PutMapping("/blogs/{id}")
+    public Blog updateBlog(HttpServletRequest req, @RequestBody BlogRequest blogRequest, @PathVariable("id") Integer id){
+        try {
+            final User user = jwtTokenService.getUserInformation(req);
+            if (user == null) {
+                log.error("User not found");
+                throw new DataNotFoundException("User not found.", null);
+            }
+            if (blogRequest == null || blogRequest.getTopic().isEmpty() || blogRequest.getContent().isEmpty()) {
+                throw new InvalidDataException("Topic or Content can not empty.", null);
+            }
+            Blog blog = blogService.findById(id);
+            if (blog == null) {
+                throw new DataNotFoundException("There is no blog id " + id, null);
+            }
+            if (!user.getUsername().equals(blog.getUser().getUsername())) {
+                throw new InvalidDataException("You are not the owner of this blog" , null);
+            }
+            blog.setTopic(blogRequest.getTopic());
+            blog.setContent(blogRequest.getContent());
+            blog.setUser(user);
+            blog.setCategory(categoryService.findById(blogRequest.getCategoryId()));
+            blogService.save(blog);
+            return blog;
+        } catch (ExpiredJwtException ex) {
+            log.error(ex.getMessage());
+            throw new AuthenticationException("Token expired.",
+                    ex.getMessage());
+        }  catch (Exception ex) {
+            log.error(ex.getMessage());
+            throw new UnexpectedException(ex.getMessage());
+        }
+    }
 }

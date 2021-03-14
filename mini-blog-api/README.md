@@ -192,3 +192,41 @@ response :
 {"id":1,"user":{"username":"chiwa","first_name":"Chiwa","last_name":"Kantawong"},"category":{"id":2,"category_name":"Programming"},"topic":"Install JDK","content":"This is the guide......","last_modified":"13/03/2011"}
 ~~~
 
+## Update Blog
+Update Blog
+
+~~~
+http://localhost:8080/blogs/1 \
+  -H 'authorization: SERTIS eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjaGl3YSIsImlzcyI6Imh0dHA6Ly93d3cuc2VydGlzLmNvLnRoIiwiaWF0IjoxNjE1NjkxMzk1LCJleHAiOjE2MTU3MDkzOTV9.DUneh1Q3o_TvDKlBp2UbjBHEO1cMAK-BRJrDUZtQLoc' \
+  -H 'content-type: application/json' \
+  -d '{
+        "topic":"test edit",
+        "content":"test edit",
+    "category_id" : 1
+}'
+~~~
+
+Response :
+
+~~~
+{"id":1,"user":{"username":"chiwa","first_name":"Chiwa","last_name":"Kantawong"},"category":{"id":1,"category_name":"Travel"},"topic":"test edit","content":"test edit","last_modified":"14/03/2021"}
+~~~
+
+## Update other user blog
+Update other user blog
+
+~~~
+http://localhost:8080/blogs/3 \
+  -H 'authorization: SERTIS eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjaGl3YSIsImlzcyI6Imh0dHA6Ly93d3cuc2VydGlzLmNvLnRoIiwiaWF0IjoxNjE1NjkxMzk1LCJleHAiOjE2MTU3MDkzOTV9.DUneh1Q3o_TvDKlBp2UbjBHEO1cMAK-BRJrDUZtQLoc' \
+  -H 'content-type: application/json' \
+  -d '{
+        "topic":"test edit",
+        "content":"test edit",
+    "category_id" : 1
+}'
+~~~
+
+Response :
+~~~
+{"status_code":500,"error_message":"You are not the owner of this blog","developer_message":"You are not the owner of this blog"}
+~~~
