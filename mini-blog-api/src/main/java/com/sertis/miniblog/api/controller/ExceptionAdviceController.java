@@ -1,9 +1,6 @@
 package com.sertis.miniblog.api.controller;
 
-import com.sertis.miniblog.api.exception.AuthenticationException;
-import com.sertis.miniblog.api.exception.DataNotFoundException;
-import com.sertis.miniblog.api.exception.DatabaseException;
-import com.sertis.miniblog.api.exception.UnexpectedException;
+import com.sertis.miniblog.api.exception.*;
 import com.sertis.miniblog.api.model.response.ApiErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -35,6 +32,12 @@ public class ExceptionAdviceController {
     @ExceptionHandler(DatabaseException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ApiErrorResponse handleDatabaseException(DatabaseException ex) {
+        return new ApiErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getMessage(), ex.getDeveloperMessage());
+    }
+
+    @ExceptionHandler(InvalidDataException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiErrorResponse handleInvalidDataException(InvalidDataException ex) {
         return new ApiErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getMessage(), ex.getDeveloperMessage());
     }
 

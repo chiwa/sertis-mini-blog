@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Service(value = "BlogService")
@@ -19,5 +21,16 @@ public class BlogServiceImpl implements BlogService {
 	@Override
 	public List<Blog> getAllBlogs()  {
 		return (List<Blog>) blogRepository.findAll();
+	}
+
+	@Override
+	public Blog findById(Integer id) {
+		return blogRepository.findById(id).orElse(null);
+	}
+
+	@Override
+	public Blog save(Blog blog) {
+		blog.setLastModified(new Date());
+		return blogRepository.save(blog);
 	}
 }

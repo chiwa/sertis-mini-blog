@@ -141,3 +141,24 @@ response :
 ~~~
 [{"category_name":"Travel"},{"category_name":"Programming"},{"category_name":"Foods"}]%
 ~~~
+
+## Create new Blog
+Create new Blog
+
+~~~
+curl --insecure -X POST \
+  http://localhost:8080/blogs \
+  -H 'authorization: SERTIS eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjaGl3YSIsImlzcyI6Imh0dHA6Ly93d3cuc2VydGlzLmNvLnRoIiwiaWF0IjoxNjE1NjkxMzk1LCJleHAiOjE2MTU3MDkzOTV9.DUneh1Q3o_TvDKlBp2UbjBHEO1cMAK-BRJrDUZtQLoc' \
+  -H 'content-type: application/json' \
+  -d '{
+	"topic":"test",
+	"content":"test",
+    "category_id" : 1
+}'
+~~~
+
+Response :
+
+~~~
+{"id":6,"user":{"username":"chiwa","first_name":"Chiwa","last_name":"Kantawong"},"category":{"id":1,"category_name":"Travel"},"topic":"test","content":"test","last_modified":"14/03/2021"}
+~~~

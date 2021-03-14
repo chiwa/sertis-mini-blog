@@ -1,10 +1,14 @@
 package com.sertis.miniblog.api.controller;
 
 import com.sertis.miniblog.api.exception.AuthenticationException;
+import com.sertis.miniblog.api.exception.DataNotFoundException;
+import com.sertis.miniblog.api.exception.InvalidDataException;
 import com.sertis.miniblog.api.exception.UnexpectedException;
 import com.sertis.miniblog.api.model.blog.Blog;
 import com.sertis.miniblog.api.model.category.Category;
+import com.sertis.miniblog.api.model.request.BlogRequest;
 import com.sertis.miniblog.api.model.response.LoginResponse;
+import com.sertis.miniblog.api.model.user.User;
 import com.sertis.miniblog.api.repository.impl.BlogServiceImpl;
 import com.sertis.miniblog.api.repository.impl.CategoryServiceImpl;
 import com.sertis.miniblog.api.security.JwtTokenService;
@@ -16,6 +20,8 @@ import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +36,7 @@ public class BlogController {
     private AuthenticationManager authenticationManager;
     private JwtTokenService jwtTokenService;
     private BlogServiceImpl blogService;
+    private CategoryServiceImpl categoryService;
 
     @Autowired
     public void setAuthenticationManager(AuthenticationManager authenticationManager) {
@@ -42,8 +49,13 @@ public class BlogController {
     }
 
     @Autowired
-    public void setCategoryService(BlogServiceImpl blogService) {
+    public void setBlogService(BlogServiceImpl blogService) {
         this.blogService = blogService;
+    }
+
+    @Autowired
+    public void setCategoryService(CategoryServiceImpl categoryService) {
+        this.categoryService = categoryService;
     }
 
     @ApiOperation(value = "Get all blogs.", response = LoginResponse.class)
@@ -62,6 +74,34 @@ public class BlogController {
             throw new AuthenticationException("Token expired.",
                     ex.getMessage());
         } catch (Exception ex) {
+            log.error(ex.getMessage());
+            throw new UnexpectedException(ex.getMessage());
+        }
+    }
+
+    @PostMapping("/blogs")
+    public Blog addNewBlog(HttpServletRequest req, @RequestBody BlogRequest blogRequest){
+        try {
+            final User user = jwtTokenService.getUserInformation(req);
+            if (user == null) {
+                log.error("User not found");
+                throw new DataNotFoundException("User not found.", null);
+            }
+            if (blogRequest == null || blogRequest.getTopic().isEmpty() || blogRequest.getContent().isEmpty() ) {
+                throw new InvalidDataException("Topic or Content can not empty.", null);
+            }
+            Blog blog = new Blog();
+            blog.setTopic(blogRequest.getTopic());
+            blog.setContent(blogRequest.getContent());
+            blog.setUser(user);
+            blog.setCategory(categoryService.findById(blogRequest.getCategoryId()));
+            blogService.save(blog);
+            return blog;
+        } catch (ExpiredJwtException ex) {
+            log.error(ex.getMessage());
+            throw new AuthenticationException("Token expired.",
+                    ex.getMessage());
+        }  catch (Exception ex) {
             log.error(ex.getMessage());
             throw new UnexpectedException(ex.getMessage());
         }
