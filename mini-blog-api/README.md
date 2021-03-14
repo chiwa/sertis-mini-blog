@@ -142,6 +142,21 @@ response :
 [{"category_name":"Travel"},{"category_name":"Programming"},{"category_name":"Foods"}]%
 ~~~
 
+### Get Category by id
+Get Category by id
+
+~~~
+curl --insecure -X GET \
+  http://localhost:8080/categories/1 \
+  -H 'authorization: SERTIS eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjaGl3YSIsImlzcyI6Imh0dHA6Ly93d3cuc2VydGlzLmNvLnRoIiwiaWF0IjoxNjE1NjUwMTA4LCJleHAiOjE2MTU2NjgxMDh9.hsRKjylaBQImpeafv31bJasxuy2H7-h-B9xxNZ2Mb2Y'
+~~~
+
+response :
+
+~~~
+{"id":1,"category_name":"Travel"}
+~~~
+
 
 
 ## Create new Blog
