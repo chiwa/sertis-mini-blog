@@ -142,6 +142,8 @@ response :
 [{"category_name":"Travel"},{"category_name":"Programming"},{"category_name":"Foods"}]%
 ~~~
 
+
+
 ## Create new Blog
 Create new Blog
 
@@ -162,3 +164,31 @@ Response :
 ~~~
 {"id":6,"user":{"username":"chiwa","first_name":"Chiwa","last_name":"Kantawong"},"category":{"id":1,"category_name":"Travel"},"topic":"test","content":"test","last_modified":"14/03/2021"}
 ~~~
+
+### Get All Blogs
+Get all Blogs
+
+~~~
+http://localhost:8080/blogs \
+  -H 'authorization: SERTIS eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjaGl3YSIsImlzcyI6Imh0dHA6Ly93d3cuc2VydGlzLmNvLnRoIiwiaWF0IjoxNjE1NjkxMzk1LCJleHAiOjE2MTU3MDkzOTV9.DUneh1Q3o_TvDKlBp2UbjBHEO1cMAK-BRJrDUZtQLoc'
+~~~
+
+response :
+~~~
+[{"id":1,"user":{"username":"chiwa","first_name":"Chiwa","last_name":"Kantawong"},"category":{"id":2,"category_name":"Programming"},"topic":"Install JDK","content":"This is the guide......","last_modified":"13/03/2011"},{"id":2,"user":{"username":"chiwa","first_name":"Chiwa","last_name":"Kantawong"},"category":{"id":2,"category_name":"Programming"},"topic":"Hello World Java","content":"Create new application......","last_modified":"13/03/2011"},{"id":3,"user":{"username":"jirapa","first_name":"Jirapa","last_name":"Kantawong"},"category":{"id":1,"category_name":"Travel"},"topic":"Travel to Japan","content":"Tokyo......","last_modified":"13/03/2011"},{"id":4,"user":{"username":"sura","first_name":"Sura","last_name":"Jiranan"},"category":{"id":3,"category_name":"Foods"},"topic":"Pizza","content":"How to cook pizza......","last_modified":"13/03/2011"},{"id":5,"user":{"username":"chiwa","first_name":"Chiwa","last_name":"Kantawong"},"category":{"id":1,"category_name":"Travel"},"topic":"test","content":"test","last_modified":"13/03/2021"}]
+~~~
+
+### Get Blog by id
+Get Blog by id
+
+~~~
+curl --insecure -X GET \
+  http://localhost:8080/blogs/1 \
+  -H 'authorization: SERTIS eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjaGl3YSIsImlzcyI6Imh0dHA6Ly93d3cuc2VydGlzLmNvLnRoIiwiaWF0IjoxNjE1NjkxMzk1LCJleHAiOjE2MTU3MDkzOTV9.DUneh1Q3o_TvDKlBp2UbjBHEO1cMAK-BRJrDUZtQLoc'
+~~~
+
+response :
+~~~
+{"id":1,"user":{"username":"chiwa","first_name":"Chiwa","last_name":"Kantawong"},"category":{"id":2,"category_name":"Programming"},"topic":"Install JDK","content":"This is the guide......","last_modified":"13/03/2011"}
+~~~
+

@@ -5,9 +5,7 @@ import com.sertis.miniblog.api.exception.DataNotFoundException;
 import com.sertis.miniblog.api.exception.InvalidDataException;
 import com.sertis.miniblog.api.exception.UnexpectedException;
 import com.sertis.miniblog.api.model.blog.Blog;
-import com.sertis.miniblog.api.model.category.Category;
 import com.sertis.miniblog.api.model.request.BlogRequest;
-import com.sertis.miniblog.api.model.response.LoginResponse;
 import com.sertis.miniblog.api.model.user.User;
 import com.sertis.miniblog.api.repository.impl.BlogServiceImpl;
 import com.sertis.miniblog.api.repository.impl.CategoryServiceImpl;
@@ -19,10 +17,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -58,6 +53,31 @@ public class BlogController {
         this.categoryService = categoryService;
     }
 
+    @ApiOperation(value = "Get blog by id.", response = Blog.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successful"),
+            @ApiResponse(code = 204, message = "No content."),
+            @ApiResponse(code = 401, message = "Authentication failed."),
+            @ApiResponse(code = 500, message = "Unexpected exception.")
+    })
+    @GetMapping(value = "/blogs/{id}")
+    public Blog getBlogById(HttpServletRequest req, @PathVariable("id") Integer id){
+        try {
+           Blog result =  blogService.findById(id);
+           if (result == null) {
+               throw new DataNotFoundException("No blog id " + id, null);
+           }
+           return result;
+        } catch (ExpiredJwtException ex) {
+            log.error(ex.getMessage());
+            throw new AuthenticationException("Token expired.",
+                    ex.getMessage());
+        } catch (Exception ex) {
+            log.error(ex.getMessage());
+            throw new UnexpectedException(ex.getMessage());
+        }
+    }
+
     @ApiOperation(value = "Get all blogs.", response = Blog.class, responseContainer = "List")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successful"),
@@ -68,7 +88,7 @@ public class BlogController {
     @GetMapping(value = "/blogs")
     public List<Blog> getAllBlogs(HttpServletRequest req){
         try {
-           return blogService.getAllBlogs();
+            return blogService.getAllBlogs();
         } catch (ExpiredJwtException ex) {
             log.error(ex.getMessage());
             throw new AuthenticationException("Token expired.",
