@@ -58,7 +58,7 @@ public class BlogController {
         this.categoryService = categoryService;
     }
 
-    @ApiOperation(value = "Get all blogs.", response = Blog.class)
+    @ApiOperation(value = "Get all blogs.", response = Blog.class, responseContainer = "List")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successful"),
             @ApiResponse(code = 204, message = "No content."),
