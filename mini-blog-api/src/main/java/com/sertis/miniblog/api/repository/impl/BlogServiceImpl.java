@@ -32,4 +32,9 @@ public class BlogServiceImpl implements BlogService {
 		blog.setLastModified(new Date());
 		return blogRepository.save(blog);
 	}
+
+	@Override
+	public void deleteById(Integer id) {
+		blogRepository.deleteById(id);
+	}
 }

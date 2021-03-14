@@ -16,7 +16,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,18 +24,12 @@ import java.util.List;
 import static org.reflections.Reflections.log;
 
 @RestController
-@Api(value="Category", description="Api for manager blog.")
+@Api(value="Blogs", description="Api for manager blog.")
 public class BlogController {
 
-    private AuthenticationManager authenticationManager;
     private JwtTokenService jwtTokenService;
     private BlogServiceImpl blogService;
     private CategoryServiceImpl categoryService;
-
-    @Autowired
-    public void setAuthenticationManager(AuthenticationManager authenticationManager) {
-        this.authenticationManager = authenticationManager;
-    }
 
     @Autowired
     public void setJwtTokenService(JwtTokenService jwtTokenService) {
@@ -174,4 +167,39 @@ public class BlogController {
             throw new UnexpectedException(ex.getMessage());
         }
     }
+
+    @ApiOperation(value = "Delete blog.", response = Boolean.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successful"),
+            @ApiResponse(code = 400, message = "Bad request,  Invalid data or user."),
+            @ApiResponse(code = 401, message = "Authentication failed."),
+            @ApiResponse(code = 500, message = "Unexpected exception.")
+    })
+    @DeleteMapping("/blogs/{id}")
+    public Boolean deleteBlog(HttpServletRequest req, @RequestBody BlogRequest blogRequest, @PathVariable("id") Integer id){
+        try {
+            final User user = jwtTokenService.getUserInformation(req);
+            if (user == null) {
+                log.error("User not found");
+                throw new DataNotFoundException("User not found.", null);
+            }
+            Blog blog = blogService.findById(id);
+            if (blog == null) {
+                throw new DataNotFoundException("There is no blog id " + id, null);
+            }
+            if (!user.getUsername().equals(blog.getUser().getUsername())) {
+                throw new InvalidDataException("You are not the owner of this blog" , null);
+            }
+            blogService.deleteById(id);
+            return true;
+        } catch (ExpiredJwtException ex) {
+            log.error(ex.getMessage());
+            throw new AuthenticationException("Token expired.",
+                    ex.getMessage());
+        }  catch (Exception ex) {
+            log.error(ex.getMessage());
+            throw new UnexpectedException(ex.getMessage());
+        }
+    }
+
 }

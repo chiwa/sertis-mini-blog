@@ -11,7 +11,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,14 +23,8 @@ import static org.reflections.Reflections.log;
 @Api(value="Category", description="Api for manager categories.")
 public class CategoryController {
 
-    private AuthenticationManager authenticationManager;
     private JwtTokenService jwtTokenService;
     private CategoryServiceImpl categoryService;
-
-    @Autowired
-    public void setAuthenticationManager(AuthenticationManager authenticationManager) {
-        this.authenticationManager = authenticationManager;
-    }
 
     @Autowired
     public void setJwtTokenService(JwtTokenService jwtTokenService) {

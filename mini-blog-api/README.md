@@ -169,6 +169,7 @@ Response :
 Get all Blogs
 
 ~~~
+curl --insecure -X GET \
 http://localhost:8080/blogs \
   -H 'authorization: SERTIS eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjaGl3YSIsImlzcyI6Imh0dHA6Ly93d3cuc2VydGlzLmNvLnRoIiwiaWF0IjoxNjE1NjkxMzk1LCJleHAiOjE2MTU3MDkzOTV9.DUneh1Q3o_TvDKlBp2UbjBHEO1cMAK-BRJrDUZtQLoc'
 ~~~
@@ -196,6 +197,7 @@ response :
 Update Blog
 
 ~~~
+curl --insecure -X PUT \
 http://localhost:8080/blogs/1 \
   -H 'authorization: SERTIS eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjaGl3YSIsImlzcyI6Imh0dHA6Ly93d3cuc2VydGlzLmNvLnRoIiwiaWF0IjoxNjE1NjkxMzk1LCJleHAiOjE2MTU3MDkzOTV9.DUneh1Q3o_TvDKlBp2UbjBHEO1cMAK-BRJrDUZtQLoc' \
   -H 'content-type: application/json' \
@@ -216,6 +218,7 @@ Response :
 Update other user blog
 
 ~~~
+curl --insecure -X PUT \
 http://localhost:8080/blogs/3 \
   -H 'authorization: SERTIS eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjaGl3YSIsImlzcyI6Imh0dHA6Ly93d3cuc2VydGlzLmNvLnRoIiwiaWF0IjoxNjE1NjkxMzk1LCJleHAiOjE2MTU3MDkzOTV9.DUneh1Q3o_TvDKlBp2UbjBHEO1cMAK-BRJrDUZtQLoc' \
   -H 'content-type: application/json' \
@@ -227,6 +230,48 @@ http://localhost:8080/blogs/3 \
 ~~~
 
 Response :
+~~~
+{"status_code":500,"error_message":"You are not the owner of this blog","developer_message":"You are not the owner of this blog"}
+~~~
+
+## DELETE Blog
+Delete Blog
+
+~~~
+curl --insecure -X DELETE \
+http://localhost:8080/blogs/1 \
+  -H 'authorization: SERTIS eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjaGl3YSIsImlzcyI6Imh0dHA6Ly93d3cuc2VydGlzLmNvLnRoIiwiaWF0IjoxNjE1NjkxMzk1LCJleHAiOjE2MTU3MDkzOTV9.DUneh1Q3o_TvDKlBp2UbjBHEO1cMAK-BRJrDUZtQLoc' \
+  -H 'content-type: application/json' \
+  -d '{
+        "topic":"test edit",
+        "content":"test edit",
+    "category_id" : 1
+}'
+~~~
+
+Response :
+
+~~~
+true
+~~~
+
+## DELETE other user's Blog
+Delete other user's Blog
+
+~~~
+curl --insecure -X DELETE \
+http://localhost:8080/blogs/3 \
+  -H 'authorization: SERTIS eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjaGl3YSIsImlzcyI6Imh0dHA6Ly93d3cuc2VydGlzLmNvLnRoIiwiaWF0IjoxNjE1NjkxMzk1LCJleHAiOjE2MTU3MDkzOTV9.DUneh1Q3o_TvDKlBp2UbjBHEO1cMAK-BRJrDUZtQLoc' \
+  -H 'content-type: application/json' \
+  -d '{
+        "topic":"test edit",
+        "content":"test edit",
+    "category_id" : 1
+}'
+~~~
+
+Response :
+
 ~~~
 {"status_code":500,"error_message":"You are not the owner of this blog","developer_message":"You are not the owner of this blog"}
 ~~~
