@@ -134,7 +134,7 @@ public class BlogController {
         }
     }
 
-    @ApiOperation(value = "Create new blog.", response = Blog.class)
+    @ApiOperation(value = "Update blog.", response = Blog.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successful"),
             @ApiResponse(code = 400, message = "Bad request,  Invalid data or user."),
