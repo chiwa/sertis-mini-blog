@@ -3,8 +3,6 @@ package com.sertis.miniblog.api.controller;
 import com.sertis.miniblog.api.exception.AuthenticationException;
 import com.sertis.miniblog.api.exception.UnexpectedException;
 import com.sertis.miniblog.api.model.category.Category;
-import com.sertis.miniblog.api.model.response.LoginResponse;
-import com.sertis.miniblog.api.repository.impl.BlogServiceImpl;
 import com.sertis.miniblog.api.repository.impl.CategoryServiceImpl;
 import com.sertis.miniblog.api.security.JwtTokenService;
 import io.jsonwebtoken.ExpiredJwtException;
