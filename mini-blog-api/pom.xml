@@ -8,10 +8,10 @@
 		<version>2.4.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.sertis.mini-blog</groupId>
-	<artifactId>mini-blog-api</artifactId>
+	<groupId>com.sertis.mini-card</groupId>
+	<artifactId>mini-card-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>mini-blog-api</name>
+	<name>mini-card-api</name>
 	<description>Sertis Mini Blog API Demo</description>
 	<properties>
 		<java.version>1.8</java.version>

@@ -2,7 +2,7 @@ package com.sertis.miniblog.api.model.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class BlogRequest {
+public class CardRequest {
 
     @JsonProperty("topic")
     private String topic;
@@ -39,7 +39,7 @@ public class BlogRequest {
 
     @Override
     public String toString() {
-        return "BlogRequest{" +
+        return "CardRequest{" +
                 "topic='" + topic + '\'' +
                 ", content='" + content + '\'' +
                 ", categoryId=" + categoryId +

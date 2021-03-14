@@ -2,10 +2,10 @@ package com.sertis.miniblog.api.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sertis.miniblog.api.model.blog.Blog;
+import com.sertis.miniblog.api.model.card.Card;
 import com.sertis.miniblog.api.model.request.AuthenticationRequest;
 import com.sertis.miniblog.api.model.response.LoginResponse;
-import com.sertis.miniblog.api.repository.impl.BlogServiceImpl;
+import com.sertis.miniblog.api.repository.impl.CardServiceImpl;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
-public class BlogControllerTest {
+public class CardControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -39,44 +39,44 @@ public class BlogControllerTest {
     private AuthenticationRequest authenticationRequest = new AuthenticationRequest();
 
     @Autowired
-    private BlogController blogController;
+    private CardController cardController;
 
     @Autowired
     private UserController userController;
 
     @Autowired
-    private BlogServiceImpl blogService;
+    private CardServiceImpl cardService;
 
     private String header;
 
     @Before
     public void initial() throws Exception {
-        blogController.setBlogService(blogService);
+        cardController.setCardService(cardService);
         this.header = generateHeader();
     }
 
     @Test
-    public void get_all_blogs_test() throws Exception {
+    public void get_all_cards_test() throws Exception {
 
-        this.mockMvc = MockMvcBuilders.standaloneSetup(blogController).build();
-        MvcResult result = mockMvc.perform(get("/blogs")
+        this.mockMvc = MockMvcBuilders.standaloneSetup(cardController).build();
+        MvcResult result = mockMvc.perform(get("/cards")
                 .contentType(MediaType.APPLICATION_JSON)
                 .header("authorization", header))
                 .andExpect(status().isOk())
                 .andReturn();
 
         String content = result.getResponse().getContentAsString();
-        List<Blog> blogList = objectMapper.readValue(content, new TypeReference<List<Blog>>() {
+        List<Card> cardList = objectMapper.readValue(content, new TypeReference<List<Card>>() {
         });
-        Assert.assertEquals(4, blogList.size());
-        Assert.assertEquals("Install JDK", blogList.get(0).getTopic());
+        Assert.assertEquals(4, cardList.size());
+        Assert.assertEquals("Install JDK", cardList.get(0).getTopic());
     }
 
     @Test
     public void get_all_blog_by_id_test() throws Exception {
 
-        this.mockMvc = MockMvcBuilders.standaloneSetup(blogController).build();
-        MvcResult result = mockMvc.perform(get("/blogs/1")
+        this.mockMvc = MockMvcBuilders.standaloneSetup(cardController).build();
+        MvcResult result = mockMvc.perform(get("/cards/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .header("authorization", header))
                 .andExpect(status().isOk())
@@ -84,15 +84,15 @@ public class BlogControllerTest {
 
         String content = result.getResponse().getContentAsString();
         Assert.assertNotNull(content);
-        Blog blog = objectMapper.readValue(content, Blog.class);
-        Assert.assertEquals("Install JDK", blog.getTopic());
+        Card card = objectMapper.readValue(content, Card.class);
+        Assert.assertEquals("Install JDK", card.getTopic());
     }
 
     @Test
     public void get_blog_by_id_not_found_test() {
         try {
-            this.mockMvc = MockMvcBuilders.standaloneSetup(blogController).build();
-            MvcResult result = mockMvc.perform(get("/blogs/199")
+            this.mockMvc = MockMvcBuilders.standaloneSetup(cardController).build();
+            MvcResult result = mockMvc.perform(get("/cards/199")
                     .contentType(MediaType.APPLICATION_JSON)
                     .header("authorization", header))
                     .andExpect(status().isOk())
@@ -104,8 +104,8 @@ public class BlogControllerTest {
 
     @Test
     public void create_new_blog_test() throws Exception {
-        this.mockMvc = MockMvcBuilders.standaloneSetup(blogController).build();
-        MvcResult result = mockMvc.perform(post("/blogs")
+        this.mockMvc = MockMvcBuilders.standaloneSetup(cardController).build();
+        MvcResult result = mockMvc.perform(post("/cards")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{ \"topic\":\"test\", \"content\":\"test\", \"category_id\" : 1 }")
                 .header("authorization", header))
@@ -114,14 +114,14 @@ public class BlogControllerTest {
 
         String content = result.getResponse().getContentAsString();
         Assert.assertNotNull(content);
-        Blog blog = objectMapper.readValue(content, Blog.class);
-        Assert.assertEquals("test", blog.getTopic());
+        Card card = objectMapper.readValue(content, Card.class);
+        Assert.assertEquals("test", card.getTopic());
     }
 
     @Test
     public void update_blog_test() throws Exception {
-        this.mockMvc = MockMvcBuilders.standaloneSetup(blogController).build();
-        MvcResult result = mockMvc.perform(put("/blogs/2")
+        this.mockMvc = MockMvcBuilders.standaloneSetup(cardController).build();
+        MvcResult result = mockMvc.perform(put("/cards/2")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{ \"topic\":\"test edit\", \"content\":\"test edit\", \"category_id\" : 1}")
                 .header("authorization", header))
@@ -129,15 +129,15 @@ public class BlogControllerTest {
                 .andReturn();
         String content = result.getResponse().getContentAsString();
         Assert.assertNotNull(content);
-        Blog blog = objectMapper.readValue(content, Blog.class);
-        Assert.assertEquals("test edit", blog.getTopic());
+        Card card = objectMapper.readValue(content, Card.class);
+        Assert.assertEquals("test edit", card.getTopic());
     }
 
     @Test
     public void update_blog_other_user_test()  {
         try {
-            this.mockMvc = MockMvcBuilders.standaloneSetup(blogController).build();
-            MvcResult result = mockMvc.perform(put("/blogs/3")
+            this.mockMvc = MockMvcBuilders.standaloneSetup(cardController).build();
+            MvcResult result = mockMvc.perform(put("/cards/3")
                     .contentType(MediaType.APPLICATION_JSON)
                     .content("{ \"topic\":\"test edit\", \"content\":\"test edit\", \"category_id\" : 1}")
                     .header("authorization", header))
@@ -150,8 +150,8 @@ public class BlogControllerTest {
 
     @Test
     public void delete_blog_test() throws Exception {
-        this.mockMvc = MockMvcBuilders.standaloneSetup(blogController).build();
-        MvcResult result = mockMvc.perform(post("/blogs")
+        this.mockMvc = MockMvcBuilders.standaloneSetup(cardController).build();
+        MvcResult result = mockMvc.perform(post("/cards")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{ \"topic\":\"for delete\", \"content\":\"for delete\", \"category_id\" : 1 }")
                 .header("authorization", header))
@@ -160,9 +160,9 @@ public class BlogControllerTest {
 
         String content = result.getResponse().getContentAsString();
         Assert.assertNotNull(content);
-        Blog blog = objectMapper.readValue(content, Blog.class);
+        Card card = objectMapper.readValue(content, Card.class);
 
-        result = mockMvc.perform(delete("/blogs/" + blog.getId())
+        result = mockMvc.perform(delete("/cards/" + card.getId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .header("authorization", header))
                 .andExpect(status().isOk())
@@ -173,14 +173,14 @@ public class BlogControllerTest {
 
     @Test
     public void delete_other_user_blog_test() throws Exception {
-        this.mockMvc = MockMvcBuilders.standaloneSetup(blogController).build();
+        this.mockMvc = MockMvcBuilders.standaloneSetup(cardController).build();
         try {
-            MvcResult result = mockMvc.perform(delete("/blogs/3")
+            MvcResult result = mockMvc.perform(delete("/cards/3")
                     .contentType(MediaType.APPLICATION_JSON)
                     .header("authorization", header))
                     .andReturn();
         } catch (Exception e) {
-            Assert.assertTrue(e.getMessage().contains("You are not the owner of this blog"));
+            Assert.assertTrue(e.getMessage().contains("You are not the owner of this card"));
         }
     }
 

@@ -16,8 +16,8 @@ CREATE TABLE CATEGORIES(
   PRIMARY KEY (id)
 );
 
-DROP TABLE IF EXISTS BLOGS CASCADE;
-CREATE TABLE BLOGS(
+DROP TABLE IF EXISTS CARDS CASCADE;
+CREATE TABLE CARDS(
   id INT NOT NULL AUTO_INCREMENT,
   user_id INT NOT NULL,
   category_id INT NOT NULL,
@@ -39,7 +39,7 @@ INSERT INTO CATEGORIES (id, category_name) VALUES (1, 'Travel');
 INSERT INTO CATEGORIES (id, category_name) VALUES (2, 'Programming');
 INSERT INTO CATEGORIES (id, category_name) VALUES (3, 'Foods');
 
-INSERT INTO BLOGS (id, user_id, category_id, topic, content, last_modified) VALUES (1, 1, 2, 'Install JDK', 'This is the guide......', '2011-03-14');
-INSERT INTO BLOGS (id, user_id, category_id, topic, content, last_modified) VALUES (2, 1, 2, 'Hello World Java', 'Create new application......', '2011-03-14');
-INSERT INTO BLOGS (id, user_id, category_id, topic, content, last_modified) VALUES (3, 2, 1, 'Travel to Japan', 'Tokyo......', '2011-03-14');
-INSERT INTO BLOGS (id, user_id, category_id, topic, content, last_modified) VALUES (4, 3, 3, 'Pizza', 'How to cook pizza......', '2011-03-14');
+INSERT INTO CARDS (id, user_id, category_id, topic, content, last_modified) VALUES (1, 1, 2, 'Install JDK', 'This is the guide......', '2011-03-14');
+INSERT INTO CARDS (id, user_id, category_id, topic, content, last_modified) VALUES (2, 1, 2, 'Hello World Java', 'Create new application......', '2011-03-14');
+INSERT INTO CARDS (id, user_id, category_id, topic, content, last_modified) VALUES (3, 2, 1, 'Travel to Japan', 'Tokyo......', '2011-03-14');
+INSERT INTO CARDS (id, user_id, category_id, topic, content, last_modified) VALUES (4, 3, 3, 'Pizza', 'How to cook pizza......', '2011-03-14');

@@ -1,4 +1,4 @@
-package com.sertis.miniblog.api.model.blog;
+package com.sertis.miniblog.api.model.card;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -9,8 +9,8 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "blogs")
-public class Blog {
+@Table(name = "cards")
+public class Card {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -87,12 +87,13 @@ public class Blog {
 
     @Override
     public String toString() {
-        return "Blog{" +
+        return "Card{" +
                 "id=" + id +
                 ", topic='" + topic + '\'' +
                 ", content='" + content + '\'' +
                 ", user=" + user +
                 ", category=" + category +
+                ", lastModified=" + lastModified +
                 '}';
     }
 }
