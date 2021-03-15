@@ -221,16 +221,46 @@ export default {
       this.action = "edit";
       this.form_message = "Edit Card id " + cardId + ".";
       this.show_add_card = true;
-      this.cards.forEach(function (item, index) {
-        console.log(item, index);
-        if (cardId === item.id) {
-          
+
+      this.listAllCategories();
+
+      for (let i = 0; i < this.cards.length; i++) {
+        if (this.cards[i].id === cardId) {
+          this.topic = this.cards[i].topic;
+          this.content = this.cards[i].content;
+          this.categoryId = this.cards[i].category.id;
+          this.card_id = this.cards[i].id;
         }
-      });
+      }
     },
 
     editCardToDb: function() {
-      alert('edit');
+      axios({
+        method: "PUT",
+        url: this.mini_blog_api_url + "/cards/" + this.card_id,
+        headers: {
+          Authorization: "SERTIS " + localStorage.getItem("token")
+        },
+        data: {
+          topic: this.topic,
+          content: this.content,
+          category_id: this.categoryId
+        }
+      })
+        .then(res => {
+          console.log(res);
+          alert("Edit card successfuly.");
+          location.reload();
+        })
+        .catch(error => {
+          if (error.response) {
+            console.log(error.response.data.error_message);
+            this.error_message = error.response.data.error_message;
+          } else {
+            this.error_message = error;
+          }
+          alert(this.error_message);
+        });
     },
 
     addNewCard: function() {
@@ -240,6 +270,9 @@ export default {
         this.form_message = "Add new card.";
         this.show_add_card = true;
         this.listAllCategories();
+        this.topic = "";
+        this.content = "";
+        this.categoryId = 1;
       } else {
         alert("Please login!");
       }
