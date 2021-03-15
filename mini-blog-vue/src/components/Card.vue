@@ -17,7 +17,7 @@
 
       <div class="floatLeft2" style="text-align:left" v-if="show_add_card">
         <h3>
-          &nbsp;Add new card.
+          &nbsp;{{form_message}}
           <img
             class="menu_links"
             v-on:click="show_add_card=false"
@@ -59,10 +59,15 @@
             </td>
           </tr>
           <tr>
-            <td>
-              <button v-on:click="addNewCardToDb()">Add</button>
-            </td>
             <td></td>
+            <td>
+              <div v-if="action=='add'">
+                <button width="100px" v-on:click="addNewCardToDb()">Add Card.</button>
+              </div>
+              <div v-if="action=='edit'">
+                <button width="100px" v-on:click="editCardToDb()">Edit Card.</button>
+              </div>
+            </td>
           </tr>
         </table>
       </div>
@@ -83,7 +88,7 @@
             />
             <img
               class="menu_links"
-              v-on:click="deleteCard(card.id)"
+              v-on:click="editCard(card.id)"
               v-if="checkIfOwner(card.user.username)"
               style="margin:5px"
               width="20"
@@ -120,7 +125,7 @@
   width: 450px;
   height: 400px;
   margin: 10px;
-  background-color: #a8d358;
+  background-color: #dff57f;
   text-align: center;
   line-height: 30px;
 }
@@ -137,6 +142,9 @@ export default {
 
   data() {
     return {
+      action: "add",
+      form_message: "Add new card.",
+      card_id: 0,
       categoryId: 1,
       topic: "",
       content: "",
@@ -209,9 +217,27 @@ export default {
       }
     },
 
+    editCard: function(cardId) {
+      this.action = "edit";
+      this.form_message = "Edit Card id " + cardId + ".";
+      this.show_add_card = true;
+      this.cards.forEach(function (item, index) {
+        console.log(item, index);
+        if (cardId === item.id) {
+          
+        }
+      });
+    },
+
+    editCardToDb: function() {
+      alert('edit');
+    },
+
     addNewCard: function() {
       if (localStorage.getItem("token")) {
+        this.action = "add";
         console.log("add new card");
+        this.form_message = "Add new card.";
         this.show_add_card = true;
         this.listAllCategories();
       } else {
@@ -234,12 +260,12 @@ export default {
       })
         .then(res => {
           console.log(res);
-          alert("Added card successfuly.")
+          alert("Added card successfuly.");
           location.reload();
         })
         .catch(error => {
           if (error.response) {
-            console.log(error.response.data.error_message); // => the response payload
+            console.log(error.response.data.error_message);
             this.error_message = error.response.data.error_message;
           } else {
             this.error_message = error;
