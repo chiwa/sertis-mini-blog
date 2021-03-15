@@ -28,6 +28,7 @@ import static org.reflections.Reflections.log;
 
 @RestController
 @Api(value="User", description="Api for manager users.")
+@CrossOrigin
 public class UserController {
 
     private AuthenticationManager authenticationManager;

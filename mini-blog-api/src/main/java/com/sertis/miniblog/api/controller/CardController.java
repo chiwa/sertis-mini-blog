@@ -25,6 +25,7 @@ import static org.reflections.Reflections.log;
 
 @RestController
 @Api(value="Cards", description="Api for manager blog.")
+@CrossOrigin
 public class CardController {
 
     private JwtTokenService jwtTokenService;
