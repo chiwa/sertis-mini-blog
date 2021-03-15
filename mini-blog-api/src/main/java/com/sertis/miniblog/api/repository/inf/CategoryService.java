@@ -8,6 +8,7 @@ import java.util.List;
 public interface CategoryService {
 
     List<Category> getAllCategory();
-    Category  findById(Integer id);
+
+    Category findById(Integer id);
 
 }

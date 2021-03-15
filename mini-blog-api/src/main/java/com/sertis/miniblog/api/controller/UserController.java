@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import static org.reflections.Reflections.log;
 
 @RestController
-@Api(value="User", description="Api for manager users.")
+@Api(value = "User", description = "Api for manager users.")
 @CrossOrigin
 public class UserController {
 
@@ -56,7 +56,7 @@ public class UserController {
             @ApiResponse(code = 200, message = "pong")
     })
     @GetMapping(value = "/ping")
-    public String ping(HttpServletRequest req){
+    public String ping(HttpServletRequest req) {
         return "pong";
     }
 
@@ -94,7 +94,7 @@ public class UserController {
             @ApiResponse(code = 500, message = "Unexpected exception.")
     })
     @GetMapping(value = "/users")
-    public User getLoggedUserData(HttpServletRequest req){
+    public User getLoggedUserData(HttpServletRequest req) {
         try {
             final User user = jwtTokenService.getUserInformation(req);
             if (user == null) {
@@ -116,9 +116,9 @@ public class UserController {
             @ApiResponse(code = 500, message = "Unexpected exception.")
     })
     @PostMapping("/register-users")
-    public User registerUser(@RequestBody User newUser){
+    public User registerUser(@RequestBody User newUser) {
         try {
-            return  userService.save(newUser);
+            return userService.save(newUser);
         } catch (DataIntegrityViolationException ex) {
             log.error(ex.getMessage());
             throw new DatabaseException("Invalid data [missing required data, duplicated data]", ex.getMessage());
@@ -135,7 +135,7 @@ public class UserController {
             @ApiResponse(code = 500, message = "Unexpected exception.")
     })
     @DeleteMapping(value = "/users")
-    public void deleteUserOrderDetail(HttpServletRequest req){
+    public void deleteUserOrderDetail(HttpServletRequest req) {
         try {
             final User user = jwtTokenService.getUserInformation(req);
             if (user == null) {
@@ -147,7 +147,7 @@ public class UserController {
             log.error(ex.getMessage());
             throw new AuthenticationException("Token expired.",
                     ex.getMessage());
-        }  catch (Exception ex) {
+        } catch (Exception ex) {
             log.error(ex.getMessage());
             throw new UnexpectedException(ex.getMessage());
         }

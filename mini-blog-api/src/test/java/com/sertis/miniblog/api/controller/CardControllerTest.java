@@ -134,7 +134,7 @@ public class CardControllerTest {
     }
 
     @Test
-    public void update_blog_other_user_test()  {
+    public void update_blog_other_user_test() {
         try {
             this.mockMvc = MockMvcBuilders.standaloneSetup(cardController).build();
             MvcResult result = mockMvc.perform(put("/cards/3")
@@ -168,7 +168,7 @@ public class CardControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
         content = result.getResponse().getContentAsString();
-        Assert.assertTrue( objectMapper.readValue(content, Boolean.class));
+        Assert.assertTrue(objectMapper.readValue(content, Boolean.class));
     }
 
     @Test

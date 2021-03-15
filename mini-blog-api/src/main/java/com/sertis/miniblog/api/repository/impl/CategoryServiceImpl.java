@@ -14,15 +14,15 @@ import java.util.List;
 public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
-	private CategoryRepository categoryRepository;
+    private CategoryRepository categoryRepository;
 
-	@Override
-	public List<Category> getAllCategory() {
-		return (List<Category>) categoryRepository.findAll();
-	}
+    @Override
+    public List<Category> getAllCategory() {
+        return (List<Category>) categoryRepository.findAll();
+    }
 
-	@Override
-	public Category findById(Integer id) {
-		return categoryRepository.findById(id).orElse(null);
-	}
+    @Override
+    public Category findById(Integer id) {
+        return categoryRepository.findById(id).orElse(null);
+    }
 }

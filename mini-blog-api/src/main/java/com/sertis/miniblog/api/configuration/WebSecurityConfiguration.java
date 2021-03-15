@@ -1,7 +1,6 @@
 package com.sertis.miniblog.api.configuration;
 
 
-
 import com.sertis.miniblog.api.security.JwtAuthenticationFilter;
 import com.sertis.miniblog.api.security.MiniBlogAuthenticationEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +34,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public JwtAuthenticationFilter authenticationTokenFilter()  {
+    public JwtAuthenticationFilter authenticationTokenFilter() {
         return new JwtAuthenticationFilter();
     }
 
@@ -47,7 +46,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeRequests()
-                .antMatchers("/ping", "/h2/**", "/swagger*/**", "/webjars/**", "/v2/*",  "/login", "/cards", "/actuator/**", "/register-users").permitAll()
+                .antMatchers("/ping", "/h2/**", "/swagger*/**", "/webjars/**", "/v2/*", "/login", "/cards", "/actuator/**", "/register-users").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(miniBlogAuthenticationEntryPoint).and()

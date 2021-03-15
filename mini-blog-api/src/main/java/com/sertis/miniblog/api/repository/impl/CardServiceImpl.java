@@ -15,26 +15,26 @@ import java.util.List;
 public class CardServiceImpl implements CardService {
 
     @Autowired
-	private CardRepository cardRepository;
+    private CardRepository cardRepository;
 
-	@Override
-	public List<Card> getAllCards()  {
-		return (List<Card>) cardRepository.findAll();
-	}
+    @Override
+    public List<Card> getAllCards() {
+        return (List<Card>) cardRepository.findAll();
+    }
 
-	@Override
-	public Card findById(Integer id) {
-		return cardRepository.findById(id).orElse(null);
-	}
+    @Override
+    public Card findById(Integer id) {
+        return cardRepository.findById(id).orElse(null);
+    }
 
-	@Override
-	public Card save(Card card) {
-		card.setLastModified(new Date());
-		return cardRepository.save(card);
-	}
+    @Override
+    public Card save(Card card) {
+        card.setLastModified(new Date());
+        return cardRepository.save(card);
+    }
 
-	@Override
-	public void deleteById(Integer id) {
-		cardRepository.deleteById(id);
-	}
+    @Override
+    public void deleteById(Integer id) {
+        cardRepository.deleteById(id);
+    }
 }

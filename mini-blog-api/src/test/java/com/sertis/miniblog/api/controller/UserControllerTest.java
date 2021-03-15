@@ -79,7 +79,7 @@ public class UserControllerTest {
                     .andExpect(content().string(containsString("Authentication failed, please check your username and password")))
                     .andExpect(status().isUnauthorized());
         } catch (Exception e) {
-           Assert.assertTrue(e.getMessage().contains("Authentication failed, please check your username and password"));
+            Assert.assertTrue(e.getMessage().contains("Authentication failed, please check your username and password"));
         }
     }
 

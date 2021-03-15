@@ -44,7 +44,7 @@ public class CategoryControllerTest {
     @Autowired
     private CategoryServiceImpl categoryService;
 
-   private String header;
+    private String header;
 
     @Before
     public void initial() throws Exception {
@@ -82,10 +82,10 @@ public class CategoryControllerTest {
     }
 
     @Test
-    public void get_category_by_id_not_found()  {
+    public void get_category_by_id_not_found() {
         try {
             this.mockMvc = MockMvcBuilders.standaloneSetup(categoryController).build();
-            MvcResult  result = mockMvc.perform(get("/categories/199")
+            MvcResult result = mockMvc.perform(get("/categories/199")
                     .contentType(MediaType.APPLICATION_JSON)
                     .header("authorization", header))
                     .andExpect(status().isOk())

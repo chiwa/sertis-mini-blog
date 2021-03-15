@@ -24,7 +24,7 @@ import java.util.List;
 import static org.reflections.Reflections.log;
 
 @RestController
-@Api(value="Cards", description="Api for manager blog.")
+@Api(value = "Cards", description = "Api for manager blog.")
 @CrossOrigin
 public class CardController {
 
@@ -55,13 +55,13 @@ public class CardController {
             @ApiResponse(code = 500, message = "Unexpected exception.")
     })
     @GetMapping(value = "/cards/{id}")
-    public Card getCardById(HttpServletRequest req, @PathVariable("id") Integer id){
+    public Card getCardById(HttpServletRequest req, @PathVariable("id") Integer id) {
         try {
-           Card result =  cardService.findById(id);
-           if (result == null) {
-               throw new DataNotFoundException("No blog id " + id, null);
-           }
-           return result;
+            Card result = cardService.findById(id);
+            if (result == null) {
+                throw new DataNotFoundException("No blog id " + id, null);
+            }
+            return result;
         } catch (ExpiredJwtException ex) {
             log.error(ex.getMessage());
             throw new AuthenticationException("Token expired.",
@@ -80,7 +80,7 @@ public class CardController {
             @ApiResponse(code = 500, message = "Unexpected exception.")
     })
     @GetMapping(value = "/cards")
-    public List<Card> getAllCards(HttpServletRequest req){
+    public List<Card> getAllCards(HttpServletRequest req) {
         try {
             return cardService.getAllCards();
         } catch (ExpiredJwtException ex) {
@@ -101,14 +101,14 @@ public class CardController {
             @ApiResponse(code = 500, message = "Unexpected exception.")
     })
     @PostMapping("/cards")
-    public Card addNewCard(HttpServletRequest req, @RequestBody CardRequest cardRequest){
+    public Card addNewCard(HttpServletRequest req, @RequestBody CardRequest cardRequest) {
         try {
             final User user = jwtTokenService.getUserInformation(req);
             if (user == null) {
                 log.error("User not found");
                 throw new DataNotFoundException("User not found.", null);
             }
-            if (cardRequest == null || cardRequest.getTopic().isEmpty() || cardRequest.getContent().isEmpty() ) {
+            if (cardRequest == null || cardRequest.getTopic().isEmpty() || cardRequest.getContent().isEmpty()) {
                 throw new InvalidDataException("Topic or Content can not empty.", null);
             }
             Card card = new Card();
@@ -122,7 +122,7 @@ public class CardController {
             log.error(ex.getMessage());
             throw new AuthenticationException("Token expired.",
                     ex.getMessage());
-        }  catch (Exception ex) {
+        } catch (Exception ex) {
             log.error(ex.getMessage());
             throw new UnexpectedException(ex.getMessage());
         }
@@ -136,7 +136,7 @@ public class CardController {
             @ApiResponse(code = 500, message = "Unexpected exception.")
     })
     @PutMapping("/cards/{id}")
-    public Card updateCard(HttpServletRequest req, @RequestBody CardRequest cardRequest, @PathVariable("id") Integer id){
+    public Card updateCard(HttpServletRequest req, @RequestBody CardRequest cardRequest, @PathVariable("id") Integer id) {
         try {
             final User user = jwtTokenService.getUserInformation(req);
             if (user == null) {
@@ -151,7 +151,7 @@ public class CardController {
                 throw new DataNotFoundException("There is no blog id " + id, null);
             }
             if (!user.getUsername().equals(card.getUser().getUsername())) {
-                throw new InvalidDataException("You are not the owner of this blog" , null);
+                throw new InvalidDataException("You are not the owner of this blog", null);
             }
             card.setTopic(cardRequest.getTopic());
             card.setContent(cardRequest.getContent());
@@ -163,7 +163,7 @@ public class CardController {
             log.error(ex.getMessage());
             throw new AuthenticationException("Token expired.",
                     ex.getMessage());
-        }  catch (Exception ex) {
+        } catch (Exception ex) {
             log.error(ex.getMessage());
             throw new UnexpectedException(ex.getMessage());
         }
@@ -177,7 +177,7 @@ public class CardController {
             @ApiResponse(code = 500, message = "Unexpected exception.")
     })
     @DeleteMapping("/cards/{id}")
-    public Boolean deleteCard(HttpServletRequest req, @PathVariable("id") Integer id){
+    public Boolean deleteCard(HttpServletRequest req, @PathVariable("id") Integer id) {
         try {
             final User user = jwtTokenService.getUserInformation(req);
             if (user == null) {
@@ -189,7 +189,7 @@ public class CardController {
                 throw new DataNotFoundException("There is no card id " + id, null);
             }
             if (!user.getUsername().equals(card.getUser().getUsername())) {
-                throw new InvalidDataException("You are not the owner of this card" , null);
+                throw new InvalidDataException("You are not the owner of this card", null);
             }
             cardService.deleteById(id);
             return true;
@@ -197,7 +197,7 @@ public class CardController {
             log.error(ex.getMessage());
             throw new AuthenticationException("Token expired.",
                     ex.getMessage());
-        }  catch (Exception ex) {
+        } catch (Exception ex) {
             log.error(ex.getMessage());
             throw new UnexpectedException(ex.getMessage());
         }

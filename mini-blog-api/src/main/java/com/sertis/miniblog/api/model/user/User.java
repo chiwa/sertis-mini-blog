@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class User {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
     private int id;
 
@@ -32,8 +32,7 @@ public class User {
     private String lastName;
 
     @JsonIgnore
-    public String getPassword()
-    {
+    public String getPassword() {
         return password;
     }
 

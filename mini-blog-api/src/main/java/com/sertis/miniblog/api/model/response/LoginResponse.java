@@ -8,6 +8,7 @@ public class LoginResponse {
     public LoginResponse() {
         super();
     }
+
     public void LoginResponse(User user, String token) {
         this.username = user.getUsername();
         this.token = token;
@@ -57,7 +58,7 @@ public class LoginResponse {
         this.token = token;
     }
 
-    public  LoginResponse(User user, String token) {
+    public LoginResponse(User user, String token) {
         this.username = user.getUsername();
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
