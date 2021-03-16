@@ -306,3 +306,50 @@ When the application start you can acdess to http://localhost:3000
 
 <img src="images/s1.png"/>
 
+### Register User 
+
+Click on Add User button
+
+<img src="images/s2.png"/>
+
+### Login
+
+If you already have the user, you can login
+
+<img src="images/s3.png"/>
+
+If login success you will see the welcome user session & you will see the edit/delete button on your own card
+
+<img src="images/s4.png"/>
+
+### Create new Card
+
+You can click on + button
+
+<img src="images/s5.png"/>
+
+you will see the Add new card session
+
+<img src="images/s6.png"/>
+
+### Delete Card
+
+Click on delete button
+
+<img src="images/s7.png"/>
+
+### Update Card
+
+Click on update button
+
+<img src="images/s7.png"/>
+
+Then you will see the edit session  
+
+<img src="images/s8.png"/>
+
+
+
+
+
+
