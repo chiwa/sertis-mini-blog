@@ -2,7 +2,7 @@
 
 This demo application is build by spring-boot and using in-memory DB(H2) that provide the Mini Card API.
  
-*** Please remember this application using in-memory Database so if you stop the application then
+*** Please concern that we are using in-memory Database so if you stop the application then
 the Data will be lose (It's for development environment)
 
 ## How to run the API application?
