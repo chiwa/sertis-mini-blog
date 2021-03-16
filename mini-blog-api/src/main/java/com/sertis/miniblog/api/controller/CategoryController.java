@@ -5,7 +5,6 @@ import com.sertis.miniblog.api.exception.DataNotFoundException;
 import com.sertis.miniblog.api.exception.UnexpectedException;
 import com.sertis.miniblog.api.model.category.Category;
 import com.sertis.miniblog.api.repository.impl.CategoryServiceImpl;
-import com.sertis.miniblog.api.security.JwtTokenService;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
