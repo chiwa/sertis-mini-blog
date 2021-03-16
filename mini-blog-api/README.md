@@ -8,7 +8,7 @@ This demo application is build by spring-boot and using in-memory DB(H2)  that p
 
 ## How to run the application?
 
-Please checkout the project from https://github.com/chiwa/sertis-mini-card.git
+Please checkout the project from https://github.com/chiwa/sertis-mini-blog.git
 
 ~~~
 git clone https://github.com/chiwa/sertis-mini-card.git
