@@ -1,0 +1,24 @@
+
+csquid:S1192>"GDefine a constant instead of duplicating this literal "/cards" 3 times.(âß”ƒùÿÿÿÿ
+jsquid:S1192@"NDefine a constant instead of duplicating this literal "authorization" 9 times.(¡ÂŠÓúÿÿÿÿ
+csquid:S00112;"FDefine and throw a dedicated exception instead of using a generic one.(áéì×üÿÿÿÿ
+^squid:S00112L"FDefine and throw a dedicated exception instead of using a generic one.(½Ë¥†
+^squid:S00112j"FDefine and throw a dedicated exception instead of using a generic one.(ÎäÁÔ
+csquid:S00112z"FDefine and throw a dedicated exception instead of using a generic one.(öñ†øÿÿÿÿ
+^squid:S00112˜"FDefine and throw a dedicated exception instead of using a generic one.(¤û¢}
+dsquid:S00112¯"FDefine and throw a dedicated exception instead of using a generic one.(³‘’ïıÿÿÿÿ
+dsquid:S00112»"FDefine and throw a dedicated exception instead of using a generic one.(ŒÒåòüÿÿÿÿ
+ksquid:S00100;"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(áéì×üÿÿÿÿ
+fsquid:S00100L"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(½Ë¥†
+fsquid:S00100\"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(çÍÉ÷
+Vsquid:S1854_":Remove this useless assignment to local variable "result".(Ä˜Â¤úÿÿÿÿ
+fsquid:S00100j"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÎäÁÔ
+ksquid:S00100z"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(öñ†øÿÿÿÿ
+gsquid:S00100‰"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ú†´
+Wsquid:S1854Œ":Remove this useless assignment to local variable "result".(ÏÁüÿÿÿÿ
+fsquid:S00100˜"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¤û¢}
+lsquid:S00100¯"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(³‘’ïıÿÿÿÿ
+Wsquid:S1854²":Remove this useless assignment to local variable "result".(¯…ó‡øÿÿÿÿ
+Gsquid:S1481_"+Remove this unused "result" local variable.(Ä˜Â¤úÿÿÿÿ
+Hsquid:S1481Œ"+Remove this unused "result" local variable.(ÏÁüÿÿÿÿ
+Hsquid:S1481²"+Remove this unused "result" local variable.(¯…ó‡øÿÿÿÿ

@@ -10,7 +10,7 @@ the Data will be lose (It's for development environment)
 Please checkout the project from https://github.com/chiwa/sertis-mini-blog.git
 
 ~~~
-git clone https://github.com/chiwa/sertis-mini-card.git
+git clone https://github.com/chiwa/sertis-mini-blog.git
 cd sertis-mini-blog/mini-blog-api
 mvn clean install
 mvn spring-boot:run
